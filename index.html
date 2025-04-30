@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ML Ensemble Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>ML Ensemble Predictor</h1>
+        <form action="/form_predict" method="post">
+            {% for feature in feature_columns %}
+                <div class="input-group">
+                    <label for="{{ feature }}">{{ feature }}</label>
+                    <input type="number" step="any" name="{{ feature }}" required>
+                </div>
+            {% endfor %}
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if predictions %}
+            <div class="results">
+                <h2>Predictions</h2>
+                <ul>
+                    {% for model, result in predictions.items() %}
+                        <li><strong>{{ model }}</strong>: {{ result }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
